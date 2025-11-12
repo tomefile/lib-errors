@@ -17,6 +17,7 @@ const (
 	ERROR_WRITING    = "Writing Error"
 	ERROR_SYNTAX     = "Syntax Error"
 	ERROR_FORMATTING = "Formatting Error"
+	ERROR_VALIDATION = "Validation Error"
 )
 
 type DetailedError struct {
