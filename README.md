@@ -2,7 +2,7 @@
 
 Detailed, pretty-printed errors for tomefile.
 
-![demo](./.docs/demo.jpeg)
+![demo](./.github/demo.jpeg)
 
 ## Example usage
 
