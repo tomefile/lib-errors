@@ -3,7 +3,6 @@ package liberrors
 import (
 	"fmt"
 	"io"
-	"strings"
 
 	libescapes "github.com/bbfh-dev/lib-ansi-escapes"
 )
@@ -25,7 +24,7 @@ type DetailedError struct {
 	Details string
 
 	Trace   []TraceItem
-	Context string
+	Context Context
 }
 
 // It is recommended to use [.Print()] and [.GetPrinted()] for printing.
@@ -43,9 +42,8 @@ func (err *DetailedError) Print(writer io.Writer) {
 		}
 	}
 
-	ctx := strings.TrimSpace(err.Context)
-	if len(ctx) != 0 {
-		fmt.Fprintf(writer, "\n    %s\n", ctx)
+	if !err.Context.IsEmpty() {
+		err.Context.Print(writer)
 	}
 
 	fmt.Fprintf(
@@ -55,12 +53,6 @@ func (err *DetailedError) Print(writer io.Writer) {
 		err.Details,
 		libescapes.ColorReset,
 	)
-}
-
-func (err *DetailedError) GetPrinted() string {
-	var builder strings.Builder
-	err.Print(&builder)
-	return builder.String()
 }
 
 func (err *DetailedError) AddTraceItem(item TraceItem) *DetailedError {
